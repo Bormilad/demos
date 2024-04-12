@@ -1,4 +1,4 @@
-package org.example;
+package org.example.java;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ public class ExchangeEx {
     public static void main(String[] args) {
 
         Exchanger<Action> exchanger = new Exchanger<>();
+
         List<Action> friendsAction = new ArrayList<>();
         friendsAction.add(Action.NOZHNICY);
         friendsAction.add(Action.BUMAGA);
@@ -29,9 +30,9 @@ enum Action {
 }
 
 class Friend extends Thread{
-    private String name;
-    private List<Action> myActions;
-    private Exchanger<Action> exchanger;
+    final private String name;
+    final private List<Action> myActions;
+    final private Exchanger<Action> exchanger;
 
     public Friend(String name, List<Action> actions, Exchanger<Action> exchanger){
         this.name = name;
@@ -40,12 +41,17 @@ class Friend extends Thread{
         this.start();
     }
     public void getWinner(Action myAction, Action friendAction){
-        if((myAction == Action.KAMEN && friendAction == Action.NOZHNICY)
-        || (myAction == Action.NOZHNICY && friendAction == Action.BUMAGA)
-        || (myAction == Action.BUMAGA && friendAction == Action.KAMEN)){
+        if(isFirstActionWins(myAction, friendAction)){
             System.out.println("WINS " + name);
         }
     }
+
+    boolean isFirstActionWins(Action myAction, Action friendAction){
+        return myAction == Action.KAMEN && friendAction == Action.NOZHNICY ||
+              (myAction == Action.NOZHNICY && friendAction == Action.BUMAGA) ||
+              (myAction == Action.BUMAGA && friendAction == Action.KAMEN);
+    }
+
     public void run(){
 
         Action reply;

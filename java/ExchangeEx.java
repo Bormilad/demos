@@ -26,7 +26,7 @@ public class ExchangeEx {
 }
 
 enum Action {
-    KAMEN, NOZHNICY, BUMAGA;
+    KAMEN, NOZHNICY, BUMAGA
 }
 
 class Friend extends Thread{
